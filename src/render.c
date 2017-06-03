@@ -1,7 +1,11 @@
 #include <SDL2/SDL.h>
 #include <GL/gl.h>
 
-void render_handle_commands(SDL_Window *window, SDL_GLContext *gl_context) {
+int render_handle_command(){
+    return 0;
+}
+
+int render(SDL_Window *window, SDL_GLContext *gl_context) {
     SDL_GL_MakeCurrent(window, gl_context);
     
     // OpenGL Test
@@ -9,4 +13,6 @@ void render_handle_commands(SDL_Window *window, SDL_GLContext *gl_context) {
     glClear( GL_COLOR_BUFFER_BIT );
     
     SDL_GL_SwapWindow(window);
+    
+    return 0;
 }

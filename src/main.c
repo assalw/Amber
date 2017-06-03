@@ -13,10 +13,7 @@
 #include "render.h"
 #include "network.h"
 
-static bool running = true;
-static SDL_Window *window = NULL;
 static SDL_GLContext gl_context;
-
 
 int main(int argc, char *argv[]) {
     
@@ -30,6 +27,7 @@ int main(int argc, char *argv[]) {
     
     // Initialize SDL Window / OpenGl
     SDL_Event event;
+    SDL_Window *window = NULL;
     window = SDL_CreateWindow("Amber", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 512, 512, SDL_WINDOW_OPENGL);
     gl_context = SDL_GL_CreateContext(window);
     
@@ -38,8 +36,10 @@ int main(int argc, char *argv[]) {
     
     // Initialize timer
     unsigned int lastTime = 0, currentTime;
+
+    bool running = true;
     
-    // Main render loop TODO: Time based (NTP)
+    // Main render loop
     while (running) {
         
         // Handle SDL events
@@ -50,6 +50,7 @@ int main(int argc, char *argv[]) {
         }
             
         // TODO: Handle networking
+        render_handle_command();
         
         // Update timer
         currentTime = SDL_GetTicks();
@@ -58,7 +59,7 @@ int main(int argc, char *argv[]) {
         if (currentTime > lastTime + 20) {
             
             // Render and short delay before next rendered frame
-            render_handle_commands(window, &gl_context);
+            render(window, &gl_context);
             
             lastTime = currentTime;
         }
