@@ -36,6 +36,9 @@ int main(int argc, char *argv[]) {
     // Initialize networking
     // TODO: Create network connection
     
+    // Initialize timer
+    unsigned int lastTime = 0, currentTime;
+    
     // Main render loop TODO: Time based (NTP)
     while (running) {
         
@@ -45,12 +48,25 @@ int main(int argc, char *argv[]) {
                 running = false;
             }
         }
-        
+            
         // TODO: Handle networking
         
-        // Render and short delay before next rendered frame
-        render_handle_commands(window, &gl_context);
-        SDL_Delay(2);
+        // Update timer
+        currentTime = SDL_GetTicks();
+        
+        // Run at 50 FPS
+        if (currentTime > lastTime + 20) {
+            
+            // Render and short delay before next rendered frame
+            render_handle_commands(window, &gl_context);
+            
+            lastTime = currentTime;
+        }
+        
+        // If less then one millisecond has passed, delay by one millisecond
+        if (currentTime > lastTime + 1) {
+            SDL_Delay(1);
+        }
     }
     
     // Cleanup and exit
