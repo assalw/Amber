@@ -1,5 +1,10 @@
 #include <SDL2/SDL.h>
 #include <GL/gl.h>
+#include <vlc/vlc.h>
+
+int render_init(){
+    return 0;
+}
 
 int render_handle_command(){
     return 0;

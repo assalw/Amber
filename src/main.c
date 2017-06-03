@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
     // Initialize SDL Window / OpenGl
     SDL_Event event;
     SDL_Window *window = NULL;
-    window = SDL_CreateWindow("Amber", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 512, 512, SDL_WINDOW_OPENGL);
+    window = SDL_CreateWindow("Amber", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_OPENGL);
     gl_context = SDL_GL_CreateContext(window);
     
     // Initialize networking
