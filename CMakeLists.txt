@@ -5,7 +5,8 @@ find_package (PkgConfig REQUIRED)
 find_package(OpenGL REQUIRED)
 
 PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
-PKG_SEARCH_MODULE(libvlc REQUIRED sdl2)
+PKG_SEARCH_MODULE(libvlc REQUIRED libvlc) 
+PKG_SEARCH_MODULE(libnanomsg REQUIRED libnanomsg)
 
 pkg_check_modules (GTK2 REQUIRED gtk+-2.0)
 
