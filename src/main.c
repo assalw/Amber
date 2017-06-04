@@ -14,6 +14,8 @@
 
 int main(int argc, char *argv[]) {
     
+    // TODO: Convert to GLFW: http://www.glfw.org/docs/latest/quick.html
+    
     SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "Starting Amber");
     
     // Initialize SDL
