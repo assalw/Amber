@@ -45,16 +45,15 @@ int main(int argc, char *argv[]) {
         network_get_command();
         render_handle_command();
         
-        // Update timer
-        currentTime = SDL_GetTicks();
-        
         // Run at 50 FPS
+        currentTime = SDL_GetTicks();
         if (currentTime > lastTime + 20) {
             render();
             lastTime = currentTime;
         }
         
         // If less then one millisecond has passed, delay by one millisecond
+        currentTime = SDL_GetTicks();
         if (currentTime > lastTime + 1) {
             SDL_Delay(1);
         }
