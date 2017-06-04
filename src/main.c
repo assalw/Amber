@@ -13,7 +13,7 @@
 #include "render.h"
 #include "network.h"
 
-static SDL_GLContext gl_context;
+static SDL_GLContext g_gl_context;
 
 int main(int argc, char *argv[]) {
     
@@ -29,9 +29,10 @@ int main(int argc, char *argv[]) {
     SDL_Event event;
     SDL_Window *window = NULL;
     window = SDL_CreateWindow("Amber", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_OPENGL);
-    gl_context = SDL_GL_CreateContext(window);
+    g_gl_context = SDL_GL_CreateContext(window);
     
-    // Initialize networking
+    // Initialize rendering & networking
+    render_init();
     // TODO: Create network connection
     
     // Initialize timer
@@ -59,7 +60,7 @@ int main(int argc, char *argv[]) {
         if (currentTime > lastTime + 20) {
             
             // Render and short delay before next rendered frame
-            render(window, &gl_context);
+            render(window, &g_gl_context);
             
             lastTime = currentTime;
         }
@@ -71,7 +72,7 @@ int main(int argc, char *argv[]) {
     }
     
     // Cleanup and exit
-    SDL_GL_DeleteContext(gl_context);
+    SDL_GL_DeleteContext(g_gl_context);
     SDL_DestroyWindow(window);
     SDL_Quit();
     exit(0);
