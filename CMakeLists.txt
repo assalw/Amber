@@ -18,7 +18,7 @@ include_directories (${SDL2_INCLUDE_DIRS} ${SDL2IMAGE_INCLUDE_DIRS})
 link_directories (${GTK2_LIBRARY_DIRS} )
 
 add_executable(amber src/player.c src/network.c src/render.c src/main.c)
-add_definitions (${GTK2_CFLAGS_OTHER} src/player.c src/player.c)
+add_definitions (${GTK2_CFLAGS_OTHER})
 target_link_libraries (amber ${GTK2_LIBRARIES} ${OPENGL_LIBRARIES} ${SDL2_LIBRARIES} ${LIBVLC_LIBRARY} ${GLEW_LIBRARY})
 
 install(TARGETS amber RUNTIME DESTINATION bin)
