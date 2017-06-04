@@ -106,13 +106,13 @@ int player_next_frame() {
     // Square
     glBegin(GL_QUADS);
         glTexCoord2d(0, 1);
-        glVertex2f(-0.75, 0.75);
+        glVertex2f(-1, 1);
         glTexCoord2d(1, 1);
-        glVertex2f(0.75, 0.75);
+        glVertex2f(1, 1);
         glTexCoord2d(1, 0);
-        glVertex2f(0.75, -0.75);
+        glVertex2f(1, -1);
         glTexCoord2d(0, 0);
-        glVertex2f(-0.75, -0.75);
+        glVertex2f(-1, -1);
     glEnd();
 
     // Update VLC state

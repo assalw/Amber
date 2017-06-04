@@ -25,13 +25,7 @@ int render_handle_command(){
 }
 
 int render() {
-    
-    // OpenGL Test
-    glClearColor( (float)rand() / (float)RAND_MAX , 1.0f, 1.0f, 1.0f );
-    glClear( GL_COLOR_BUFFER_BIT );
-    
     player_next_frame();
-    
     SDL_GL_SwapWindow(window);
     return 0;
 }
