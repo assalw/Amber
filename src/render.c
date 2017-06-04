@@ -1,7 +1,10 @@
 #include <SDL2/SDL.h>
+#include <GL/glew.h>
 #include <GL/gl.h>
 #include <vlc/vlc.h>
 
+static SDL_GLContext gl_context;
+static SDL_Window *window;
 static libvlc_instance_t *libvlc;
 static libvlc_media_player_t *mp;
 
@@ -37,6 +40,11 @@ int close_vlc() {
 }
 
 int render_init(){
+    window = SDL_CreateWindow("Amber", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_OPENGL);
+    gl_context = SDL_GL_CreateContext(window);
+    glewInit();
+    glEnable(GL_TEXTURE_2D);
+    
     setup_vlc();
     return 0;
 }
@@ -62,12 +70,14 @@ int render_handle_command(){
     return 0;
 }
 
-int render(SDL_Window *window) {
+int render() {
     SDL_GL_SwapWindow(window);
     return 0;
 }
 
 int render_close(){
     close_vlc();
+    SDL_GL_DeleteContext(gl_context);
+    SDL_DestroyWindow(window);
     return 0;
 }

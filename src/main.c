@@ -8,13 +8,9 @@
 #include <stdbool.h>
 #include <glib.h>
 #include <SDL2/SDL.h>
-#include <GL/glew.h>
-#include <GL/gl.h>
 
 #include "render.h"
 #include "network.h"
-
-static SDL_GLContext gl_context;
 
 int main(int argc, char *argv[]) {
     
@@ -26,22 +22,16 @@ int main(int argc, char *argv[]) {
         exit(1);
     }
     
-    // Initialize SDL Window / OpenGl
-    SDL_Event event;
-    SDL_Window *window = NULL;
-    window = SDL_CreateWindow("Amber", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_OPENGL);
-    gl_context = SDL_GL_CreateContext(window);
-    glewInit();
-    
     // Initialize rendering & networking
     render_init();
-    // TODO: Create network connection
-    
+    network_init();
+   
     // Initialize timer
     unsigned int lastTime = 0, currentTime;
-
+   
+    SDL_Event event;
     bool running = true;
-    
+
     // Main render loop
     while (running) {
         
@@ -52,7 +42,7 @@ int main(int argc, char *argv[]) {
             }
         }
             
-        // TODO: Handle networking
+        network_get_command();
         render_handle_command();
         
         // Update timer
@@ -60,10 +50,7 @@ int main(int argc, char *argv[]) {
         
         // Run at 50 FPS
         if (currentTime > lastTime + 20) {
-            
-            // Render and short delay before next rendered frame
-            render(window);
-            
+            render();
             lastTime = currentTime;
         }
         
@@ -75,8 +62,7 @@ int main(int argc, char *argv[]) {
     
     // Cleanup and exit
     render_close();
-    SDL_GL_DeleteContext(gl_context);
-    SDL_DestroyWindow(window);
+    network_close();
     SDL_Quit();
     exit(0);
 }
