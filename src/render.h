@@ -7,4 +7,6 @@ int render_init();
 
 int render_handle_command();
 
-int render(SDL_Window *window, SDL_GLContext *gl_context);
+int render(SDL_Window *window);
+
+int render_close();
