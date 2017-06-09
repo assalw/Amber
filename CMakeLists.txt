@@ -18,6 +18,7 @@ include_directories(${OPENGL_INCLUDE_DIRS})
 include_directories(${SDL2_INCLUDE_DIRS} ${SDL2IMAGE_INCLUDE_DIRS})
 include_directories(${GLIB_INCLUDE_DIRS})
 include_directories (${LIBPNG_INCLUDE_DIRS})
+include_directories(${LIBVLC_INCLUDE_DIR})
 
 link_directories(${GTK2_LIBRARY_DIRS})
 link_directories(${LIBPNG_LIBRARY_DIRS})
