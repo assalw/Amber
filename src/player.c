@@ -1,7 +1,6 @@
 #include <vlc/vlc.h>
 #include <SDL2/SDL.h>
-#include <GL/glew.h>
-#include <GL/gl.h>
+#include <SDL2/SDL_opengl.h>
 
 static libvlc_instance_t *libvlc;
 static libvlc_media_player_t *mp;
