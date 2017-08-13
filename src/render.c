@@ -14,7 +14,10 @@ int render_init(){
     glewInit();
     glEnable(GL_TEXTURE_2D);
     glEnable(GL_DEPTH_TEST);
-     
+
+    // Print OpenGL version
+    SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "%s: %s", "OpenGL Version:",  glGetString(GL_VERSION));
+    
     player_init();
     return 0;
 }
