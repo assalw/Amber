@@ -1,3 +1,4 @@
+#include <GL/glew.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
 
@@ -5,7 +6,6 @@
 
 static SDL_GLContext gl_context;
 static SDL_Window *window;
-
 
 int render_init(){ 
     window = SDL_CreateWindow("Amber", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_OPENGL);
