@@ -27,4 +27,10 @@ add_executable(amber src/player.c src/network.c src/render.c src/main.c src/png.
 add_definitions(${GTK2_CFLAGS_OTHER})
 target_link_libraries(amber ${GTK2_LIBRARIES} ${OPENGL_LIBRARIES} ${SDL2_LIBRARIES} ${LIBVLC_LIBRARY} ${LIBVLCCORE_LIBRARY} ${GLEW_LIBRARY} ${LIBPNG_LIBRARIES})
 
+# Copy shaders to build location
+file(COPY "src/shaders/" DESTINATION "./")
+
+# Copy media assets for testing to build location
+file(COPY "resources/test/" DESTINATION "./")
+
 install(TARGETS amber RUNTIME DESTINATION bin)
