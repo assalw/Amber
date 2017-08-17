@@ -23,7 +23,7 @@ include_directories(${LIBVLC_INCLUDE_DIR})
 link_directories(${GTK2_LIBRARY_DIRS})
 link_directories(${LIBPNG_LIBRARY_DIRS})
 
-add_executable(amber src/player.c src/network.c src/render.c src/main.c)
+add_executable(amber src/player.c src/network.c src/render.c src/main.c src/png.c)
 add_definitions(${GTK2_CFLAGS_OTHER})
 target_link_libraries(amber ${GTK2_LIBRARIES} ${OPENGL_LIBRARIES} ${SDL2_LIBRARIES} ${LIBVLC_LIBRARY} ${LIBVLCCORE_LIBRARY} ${GLEW_LIBRARY} ${LIBPNG_LIBRARIES})
 
