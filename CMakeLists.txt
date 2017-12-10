@@ -9,7 +9,7 @@ find_package(GLEW REQUIRED)
 find_package(LibVLC REQUIRED)
 
 pkg_search_module(SDL2 REQUIRED sdl2)
-#pkg_search_module(libnanomsg REQUIRED libnanomsg)
+pkg_search_module(nanomsg REQUIRED nanomsg)
 pkg_search_module(GLIB REQUIRED glib-2.0)
 pkg_search_module(LIBPNG REQUIRED libpng16)
 
