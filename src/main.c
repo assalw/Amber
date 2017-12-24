@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
 
     // Initialize rendering & networking
     render_init(WIDTH, HEIGHT, "vertex.glsl", "fragment.glsl");
-    int test_png = render_load_texture("test.png");
+    int test_png = render_load_png("test.png");
     network_init();
 
     // Add some channels

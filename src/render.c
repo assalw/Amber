@@ -147,7 +147,9 @@ int render_init(int width, int height, const char *vertex_file, const char *frag
     init_shaders(vertex_file, fragment_file);
     init_buffers();
 
-    //player_init();
+    render_init_texture();
+
+    player_init();
 
     _update_buffers = 1;
 
@@ -164,6 +166,8 @@ int render(int width, int height, double transition){
         _update_buffers = 0;
     }
 
+    //player_next_frame(_texture);
+
     glViewport(0, 0, width, height);
 
     glClear(GL_COLOR_BUFFER_BIT);
@@ -178,14 +182,13 @@ int render(int width, int height, double transition){
 
     glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 4, _render_channels);
 
-    //player_next_frame();
     SDL_GL_SwapWindow(_window);
 
     return 0;
 }
 
 int render_close(){
-    //player_close();
+    player_close();
     SDL_GL_DeleteContext(_gl_context);
     SDL_DestroyWindow(_window);
 
@@ -217,25 +220,33 @@ int render_add_channel(float x, float y, float width, float height, float rotati
     return 0;
 }
 
-int render_load_texture(const char *file){
+int render_load_png(const char *file){
     int png = loadPng(file, file);
     if(png < 0){
         fprintf(stderr, "Loading image \"%s\" failed\n", file);
         return png;
     }
 
+    int width = getPngWidth(png);
+    int height = getPngHeight(png);
+
+    render_load_texture(getPngData(png), width, height);
+
+    return png;
+}
+
+void render_load_texture(void * rawdata, int width, int height) {
+    glBindTexture(GL_TEXTURE_2D, _texture);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, rawdata);
+    glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void render_init_texture() {
     glGenTextures(1, &_texture);
     glBindTexture(GL_TEXTURE_2D, _texture);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-    int width = getPngWidth(png);
-    int height = getPngHeight(png);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, getPngData(png));
-
     glBindTexture(GL_TEXTURE_2D, 0);
-
-    return png;
 }

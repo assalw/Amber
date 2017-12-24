@@ -217,7 +217,7 @@ int getPngHeight(int id)
 	return pngs[id].height;
 }
 
-const unsigned char *getPngData(int id)
+void * getPngData(int id)
 {
 	return pngs[id].pixels;
 }

@@ -6,4 +6,4 @@ int getPngId(const char *name);
 
 int getPngWidth(int id);
 int getPngHeight(int id);
-const unsigned char *getPngData(int id);
+void * getPngData(int id);

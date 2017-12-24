@@ -1,3 +1,5 @@
+#include "player.h"
+
 #include <vlc/vlc.h>
 #include <GL/glew.h>
 #include <SDL2/SDL.h>
@@ -38,12 +40,6 @@ static void unlockfct(void *data, void *id, void * const *p_pixels) {
 }
 
 int player_init() {
-        // Init Texture
-    glGenTextures(1, &textureId);
-    glBindTexture(GL_TEXTURE_2D, textureId);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
     // Init SDL_surface
     sdlStruct.sdlSurface = SDL_CreateRGBSurface(SDL_SWSURFACE, W, H, 16, 0xf800, 0x07e0, 0x001f, 0);
     sdlStruct.sdlMutex = SDL_CreateMutex();
@@ -80,7 +76,7 @@ int player_init() {
     return 0;
 }
 
-int player_next_frame() {
+int player_next_frame(GLuint _texture) {
     // Render to render: target http://www.opengl-tutorial.org/intermediate-tutorials/tutorial-14-render-to-texture/  
     void * rawData = (void *) malloc(W * H * 4);
     Uint8 * pixelSource;
@@ -96,24 +92,11 @@ int player_next_frame() {
         }
     }
 
-    // Building the texture
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glBindTexture(GL_TEXTURE_2D, textureId);
-    glTexImage2D(GL_TEXTURE_2D, 0, 4, W, H, 0, GL_RGBA, GL_UNSIGNED_BYTE, (Uint8 *) rawData);
+    glBindTexture(GL_TEXTURE_2D, _texture);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, W, H, 0, GL_RGBA, GL_UNSIGNED_BYTE, rawData);
+    glBindTexture(GL_TEXTURE_2D, 0);
 
     free(rawData);
-
-    // Square
-    glBegin(GL_QUADS);
-        glTexCoord2d(0, 1);
-        glVertex2f(-1, 1);
-        glTexCoord2d(1, 1);
-        glVertex2f(1, 1);
-        glTexCoord2d(1, 0);
-        glVertex2f(1, -1);
-        glTexCoord2d(0, 0);
-        glVertex2f(-1, -1);
-    glEnd();
 
     // Update VLC state
     state = libvlc_media_player_get_state(mp);
