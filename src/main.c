@@ -6,7 +6,6 @@
 
 #include <stdio.h>
 #include <stdbool.h>
-#include <glib.h>
 #include <SDL2/SDL.h>
 
 #include "render.h"
